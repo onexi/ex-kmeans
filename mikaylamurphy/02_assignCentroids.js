@@ -1,30 +1,39 @@
-
 function run(){
-	var k = document.getElementById('k').value;
-	var means = pickRandomMeans(k);
+    var means = [{x:100,y:75},{x:175,y:300},{x:500,y:275}];
+    assignCentroids(means);
 
     // draw data
     clearCanvas();
     graphData('black');
     graphMeans(means, 'gray');
 
-    // show means on screen
-	var pretty = means.reduce(function(previous,current){
-		return previous + '{x:' + current.x + ',y:' + current.y + '},';
-	},'');
-	document.getElementById('means').innerHTML = 'Means: ' + pretty;
+    // display means using text
+    var pretty = data.reduce(function(previous,current){
+        return previous + '{x:' + current.x + ',y:' + current.y + ',centroid:' + current.centroid +  '},<br>';
+    },'');
+    document.getElementById('means').innerHTML = pretty;
 }
 
-// pick random centroids (means)
-var pickRandomMeans = function(k) {
+// loop through data points and assign closest centroid
+function assignCentroids(means) {
 
-    //  -------------------------
-    //  YOUR CODE
-    //  -------------------------
+    // -------------------------------
+    //      YOUR CODE
+    // -------------------------------
+    data.forEach(function(point){
+        var distances = means.map(function(mean){
+            var dx = point.x - mean.x
+            var dy = point.y - mean.y;
+            return Math.sqrt(dx * dx + dy * dy);
+        });
+        
+        var minDistance = Math.min.apply(null, distances);
 
-    //return format:
-    // [{x:1,y:7},{x:10,y:5},{x:4,y:11}];
-};
+        point.centroid = distances.indexOf(minDistance)
+
+    });
+    return data;
+}
 
 // data points for kMeans
 var data = [
@@ -57,4 +66,4 @@ var data = [
 ];
 
 var exercise = {};
-exercise.pickRandomMeans = pickRandomMeans;
+exercise.assignCentroids = assignCentroids;
