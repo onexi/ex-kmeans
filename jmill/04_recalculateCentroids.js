@@ -30,6 +30,25 @@ function recalculateCentroids(clusters){
 
     //return format:
     // [{x:1,y:7},{x:10,y:5},{x:4,y:11}];
+
+    //JM added here:
+    var means = [];
+    clusters.forEach(function(cluster, i){
+        var xSum = 0;
+        var ySum = 0;
+
+        cluster.forEach(function(point){
+            xSum += point.x;
+            ySum += point.y;
+        });
+
+        var xCentroid = xSum/cluster.length;
+        var yCentroid = ySum/cluster.length;
+
+        means[i] = {x:xCentroid, y:yCentroid};
+
+    });
+    return means;
 }
 
 

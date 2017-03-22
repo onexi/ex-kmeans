@@ -24,6 +24,18 @@ var pickRandomMeans = function(k) {
 
     //return format:
     // [{x:1,y:7},{x:10,y:5},{x:4,y:11}];
+
+    //JM added here:
+    var means = [];
+    var y = 0;
+    var x = 0;
+
+    for (var i = 0; i < k; i++) {
+        x = Math.floor(Math.random()*640); //size of canvas is 640
+        y = Math.floor(Math.random()*480); //size of canvas is 480
+        means.push({x:x, y:y});        
+    }
+    return means;
 };
 
 // data points for kMeans

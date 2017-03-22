@@ -21,6 +21,22 @@ function assignCentroids(means) {
     //      YOUR CODE
     // -------------------------------
 
+    //JM added here:
+    data.forEach(function(point){
+        // loop through centroids
+        var distances = means.map(function(mean){
+            var dx = point.x - mean.x;
+            var dy = point.y - mean.y;
+            return Math.sqrt(dx*dy + dy*dy); //gives us an array of disances
+        });
+
+        // find minimum distances
+        var minDistance = Math.min.apply(null, distances);
+
+        // find index position of the centroid
+        point.centroid = distances.indexOf(minDistance);
+    })
+
 }
 
 // data points for kMeans
